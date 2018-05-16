@@ -4,12 +4,6 @@ let current=0;
 makeFakePicture();
 $('.img').css({transform:'translateX(-300px)'});
 click();
-$('#previous').on('click',function(){
-    arrivePicture(current-1);
-})
-$('#next').on('click',function(){
-    arrivePicture(current+1);
-})
 let time = setInterval(function(){
    arrivePicture(current+1)
 },2000)
