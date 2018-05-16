@@ -1,9 +1,10 @@
 let $img = $('.img>img')
-let $buttons = $('#button > button');
+let $buttons = $('#content > li');
 let current=0;
 makeFakePicture();
 $('.img').css({transform:'translateX(-300px)'});
 click();
+
 let time = setInterval(function(){
    arrivePicture(current+1)
 },2000)
@@ -14,8 +15,20 @@ $('.window').on('mouseenter',function(){
         arrivePicture(current+1)
      },2000)  
 })
+let n = 0;
+$buttons.eq(n % 3).trigger('click').addClass('active').siblings('.active').removeClass('active');
+let timer = setInterval(() => {
+    n = n + 1;
+$buttons.eq(n % 3).trigger('click').addClass('active').siblings('.active').removeClass('active');
+}, 2000);
+
+$($buttons).on('click',function(e){
+    console.log('dede')
+    var $button = $(e.currentTarget); 
+    $button.addClass('active').siblings().removeClass('active');
+  })
 function click(){
-    $('#button').on('click','button',function(e){
+    $('#content').on('click','li',function(e){
         let  button = $(e.currentTarget);
         let  index = button.index();
         arrivePicture(index);
