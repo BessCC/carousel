@@ -1,29 +1,85 @@
-
-let n = 1;
-初始化(n);
-setInterval(()=>{//箭头函数中是没有function()的，
-    $(`.img > img:nth-child(${x(n)}`).removeClass('current').addClass('active')
-    $(`.img > img:nth-child(${x(n+1)}`).addClass('current').removeClass('enter');
-    $(`.img > img:nth-child(${x(n)}`).one('transitionend',function(x){
-        $(x.currentTarget).addClass('enter').removeClass('active')
+let $img = $('.img>img')
+let $buttons = $('#button > button');
+let current=0;
+makeFakePicture();
+$('.img').css({transform:'translateX(-300px)'});
+click();
+$('#previous').on('click',function(){
+    arrivePicture(current-1);
+})
+$('#next').on('click',function(){
+    arrivePicture(current+1);
+})
+let time = setInterval(function(){
+   arrivePicture(current+1)
+},2000)
+$('.window').on('mouseenter',function(){
+    window.clearInterval(time);
+}).on('mouseleave',function(){
+    time = setInterval(function(){
+        arrivePicture(current+1)
+     },2000)  
+})
+function click(){
+    $('#button').on('click','button',function(e){
+        let  button = $(e.currentTarget);
+        let  index = button.index();
+        arrivePicture(index);
     })
-    n++;
-},1000)
-function x(y){
-    if(y>3){
-        y = y % 3;
-        if(y ===0){
-            y = 3;
-        }
+}
+function arrivePicture(index){
+    if(index > $buttons.length-1){
+        index = 0;
+    }else if(index < 0){
+        index = $buttons.length - 1;
     }
-    return y
+    if(current == $buttons.length-1 && index == 0){
+        $('.img').css({transform:`translateX(${-($buttons.length+1)*300}px)`}).one('transitionend',function(){
+            $('.img').hide().offset();
+            $('.img').css({transform:`translateX(${-(index+1)*300}px)`}).show();
+        })   
+       }else if(current == 0 && index ==$buttons.length-1 ){
+        $('.img').css({transform:'translateX(0)'}).one('transitionend',function(){
+            $('.img').hide().offset();
+            $('.img').css({transform:`translateX(${-(index+1)*300}px)`}).show();
+        })     
+       }else{
+        $('.img').css({transform:`translateX(${-(index+1)*300}px)`})
+       }
+       current = index    
 }
-function 初始化(){
-    $(`.img > img:nth-child(${(n)})`).addClass('current').siblings().addClass('enter');
+/*    $buttons.eq(0).on('click',function(){
+        if(current==2){
+            $('.img').css({transform:'translateX(-1200px)'}).one('transitionend',function(){
+                $('.img').hide().offset();
+                $('.img').css({transform:'translateX(-300px)'}).show();
+            })
+        }
+        current=0;
+    })
+    $buttons.eq(1).on('click',function(){
+        current=1;
+        $('.img').css({transform:'translateX(-600px)'})
+    })
+    $buttons.eq(2).on('click',function(){
+        if(current==0){
+            $('.img').css({transform:'translateX(0)'}).one('transitionend',function(){
+                $('.img').hide().offset();
+                $('.img').css({transform:'translateX(-900px)'}).show();
+            })
+        }else{
+            $('.img').css({transform:'translateX(-900px)'})
+            current=2;
+        }
+        
+    })
+*/
+function makeFakePicture(){
+    let firstClone = $img.eq(0).clone(true);
+    let lastClone = $img.eq($img.length-1).clone(true);
+    $('.img').append(firstClone);
+    $('.img').prepend(lastClone);
 }
-
-
-
 
 
 
