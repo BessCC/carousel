@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,13 +9,22 @@
     <title>无缝轮播</title>
 </head>
 <body style='background:white'>
-    <div class='window'>
-        <div class="img">
-            <img src="./图片/小猫.jpg" alt="图片" width="300" height="300">
-            <img src="./图片/小猫2.jpg" alt="图片" width="300" height="300">
-            <img src="./图片/小猫3.jpg" alt="图片" width="300" height="300">
-            <script src='./main.js'></script>
+        <div class='window'>
+            <div class="img">
+                <img src="./图片/小猫.jpg" alt="图片" width="300" height="300">
+                <img src="./图片/小猫2.jpg" alt="图片" width="300" height="300">
+                <img src="./图片/小猫3.jpg" alt="图片" width="300" height="300">
+            </div>
         </div>
-    </div>
+        <div class='swicthButton' id='switchButton' style='text-align:center'>
+            <button id='previous'>上一页 </button>
+            <button id='next'>下一页</button>
+        </div>
+        <div class='button' id='button' style='text-align:center'>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+        </div>
+    <script src='./main.js'></script>
 </body>
 </html>
